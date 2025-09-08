@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 function Cuadro({ tareas, onToggle, onDelete }) {
   return (
     <ul>
-      {tareas.map(t => (
+      {tareas.map((t) => (
         <li key={t.id}>
           <label>
             <input
@@ -11,15 +11,9 @@ function Cuadro({ tareas, onToggle, onDelete }) {
               checked={t.completed}
               onChange={() => onToggle(t.id, !t.completed)}
             />
-            <span>
-              {t.text}
-            </span>
+            <span>{t.text}</span>
           </label>
-          <button
-            onClick={() => onDelete(t.id)}
-          >
-            Eliminar
-          </button>
+          <button onClick={() => onDelete(t.id)}>Eliminar</button>
         </li>
       ))}
     </ul>
@@ -27,4 +21,3 @@ function Cuadro({ tareas, onToggle, onDelete }) {
 }
 
 export default Cuadro;
-
