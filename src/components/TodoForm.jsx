@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../styles/EstiloForm.css";
 
 function TodoForm({ onAdd }) {
   const [input, setInput] = useState("");
@@ -21,9 +22,7 @@ function TodoForm({ onAdd }) {
         onChange={(e) => setInput(e.target.value)}
         placeholder="Nueva tarea..."
       />
-      <button type="submit">
-        Agregar
-      </button>
+      <button type="submit">Agregar</button>
     </form>
   );
 }

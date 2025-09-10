@@ -1,6 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import "../styles/EstiloCuadro.css";
 
-function Cuadro({ tareas, onToggle, onDelete }) {
+function Cuadro({ tareas, onToggle, onDelete, onEdit }) {
+  const [editingId, setEditingId] = useState(null);
+  const [editText, setEditText] = useState("");
+
+  const handleEditStart = (id, text) => {
+    setEditingId(id);
+    setEditText(text);
+  };
+
+  const handleEditSave = (id) => {
+    if (editText.trim()) {
+      onEdit(id, editText.trim());
+      setEditingId(null);
+      setEditText("");
+    }
+  };
+
+  const handleEditCancel = () => {
+    setEditingId(null);
+    setEditText("");
+  };
+
   return (
     <ul>
       {tareas.map((t) => (
@@ -11,9 +33,38 @@ function Cuadro({ tareas, onToggle, onDelete }) {
               checked={t.completed}
               onChange={() => onToggle(t.id, !t.completed)}
             />
-            <span>{t.text}</span>
+            {editingId === t.id ? (
+              <input
+                type="text"
+                value={editText}
+                onChange={(e) => setEditText(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    handleEditSave(t.id);
+                  }
+                  if (e.key === 'Escape') {
+                    handleEditCancel();
+                  }
+                }}
+                autoFocus
+                className="edit-input"
+              />
+            ) : (
+              <span>{t.text}</span>
+            )}
           </label>
-          <button onClick={() => onDelete(t.id)}>Eliminar</button>
+          
+          {editingId === t.id ? (
+            <div className="edit-buttons">
+              <button onClick={() => handleEditSave(t.id)}>Guardar</button>
+              <button onClick={handleEditCancel}>Cancelar</button>
+            </div>
+          ) : (
+            <div className="action-buttons">
+              <button onClick={() => handleEditStart(t.id, t.text)}>Editar</button>
+              <button onClick={() => onDelete(t.id)}>Eliminar</button>
+            </div>
+          )}
         </li>
       ))}
     </ul>

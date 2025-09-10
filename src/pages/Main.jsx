@@ -3,7 +3,8 @@ import {
   getTasks,
   createTask,
   deleteTask,
-  toggleTask
+  toggleTask,
+  editTask
 } from '../services/ServicesTasks';
 import TodoForm from '../components/TodoForm';
 import Cuadro from '../components/Cuadro';
@@ -37,6 +38,11 @@ function Main() {
     fetchAll();
   };
 
+  const handleEdit = async (id, text) => {
+    await editTask(id, text);
+    fetchAll();
+  };
+
   return (
     <div>
       <h1>Mi ToDo List</h1>
@@ -48,6 +54,7 @@ function Main() {
           tareas={tareas}
           onToggle={handleToggle}
           onDelete={handleDelete}
+          onEdit={handleEdit}
         />
       )}
       <p>Tareas completadas: {completedCount}</p>

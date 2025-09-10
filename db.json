@@ -1,9 +1,3 @@
 {
-  "tareas": [
-    {
-      "id": "9be5",
-      "text": "Hacer el TodoList",
-      "completed": false
-    }
-  ]
+  "tareas": []
 }

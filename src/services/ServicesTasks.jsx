@@ -12,3 +12,6 @@ export const deleteTask = id =>
 
 export const toggleTask = (id, completed) =>
   axios.patch(`${API_URL}/${id}`, { completed });
+
+export const editTask = (id, text) =>
+  axios.patch(`${API_URL}/${id}`, { text });
